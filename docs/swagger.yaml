@@ -1,0 +1,143 @@
+basePath: /
+definitions:
+  model.Delivery:
+    properties:
+      address:
+        type: string
+      city:
+        type: string
+      email:
+        type: string
+      name:
+        type: string
+      phone:
+        type: string
+      region:
+        type: string
+      zip:
+        type: string
+    type: object
+  model.Item:
+    properties:
+      brand:
+        type: string
+      chrt_id:
+        type: integer
+      name:
+        type: string
+      nm_id:
+        type: integer
+      price:
+        type: number
+      rid:
+        type: string
+      sale:
+        type: integer
+      size:
+        type: string
+      status:
+        type: integer
+      total_price:
+        type: number
+      track_number:
+        type: string
+    type: object
+  model.Order:
+    properties:
+      customerId:
+        type: string
+      dateCreated:
+        type: string
+      delivery:
+        $ref: '#/definitions/model.Delivery'
+      deliveryService:
+        type: string
+      entry:
+        type: string
+      internalSignature:
+        type: string
+      items:
+        items:
+          $ref: '#/definitions/model.Item'
+        type: array
+      locale:
+        type: string
+      oofShard:
+        type: string
+      orderId:
+        type: integer
+      orderUid:
+        type: string
+      payment:
+        $ref: '#/definitions/model.Payment'
+      shardkey:
+        type: string
+      smId:
+        type: string
+      trackNumber:
+        type: string
+    type: object
+  model.Payment:
+    properties:
+      amount:
+        type: integer
+      bank:
+        type: string
+      currency:
+        type: string
+      custom_fee:
+        type: integer
+      delivery_cost:
+        type: integer
+      goods_total:
+        type: integer
+      payment_dt:
+        type: integer
+      provider:
+        type: string
+      request_id:
+        type: string
+      transaction:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: API Server for OrderService Application
+  title: OrderService
+  version: "1.0"
+paths:
+  /order:
+    get:
+      consumes:
+      - application/json
+      description: get {object} model.Order by ID
+      parameters:
+      - description: Order ID
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Order'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Show a order
+      tags:
+      - orders
+swagger: "2.0"
